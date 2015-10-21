@@ -1,0 +1,41 @@
+/* GLOBAL */
+
+body 
+{
+	background-color: white;
+
+
+}
+
+
+
+#header 
+{
+	background-color: black;
+	color: white;
+	padding: 5px;
+	text-align: center;
+	font-family: Arial;
+	font-size: 18px;
+
+}
+
+#mainNav 
+{
+
+	text-align: center;
+	margin-top: 10px;
+	outline: black solid 1px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+
+}
+
+#mainNav a 
+{
+	font-family: Calibri;
+	font-size: 19px;
+	color: orange ;
+}
+
