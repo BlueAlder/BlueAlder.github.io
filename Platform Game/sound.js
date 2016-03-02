@@ -6,6 +6,8 @@ var normal_background = new Howl(
 	volume: 0.1
 } );
 
+NProgress.inc();
+
 var alternate_background = new Howl(
 {
 	urls: ["Music and Sounds/evil level.ogg"],
@@ -15,6 +17,8 @@ var alternate_background = new Howl(
 } );
 //alternate_background.play();
 
+NProgress.inc();
+
 var game_end = new Howl(
 {
 	urls: ["Music and Sounds/death music.ogg"],
@@ -22,7 +26,7 @@ var game_end = new Howl(
 	volume: 0.1
 } );
 
-
+NProgress.inc();
 
 var win_theme = new Howl(
 {
@@ -32,7 +36,7 @@ var win_theme = new Howl(
 	volume: 0.1
 } );
 
-
+NProgress.inc();
 var jump_sfx = new Howl(
 {
 	urls: ["Music and Sounds/jump_11.wav"],
@@ -43,6 +47,8 @@ var jump_sfx = new Howl(
 	}
 });
 
+NProgress.inc();
+
 var key_sfx = new Howl(
 {
 	urls: ["Picked Coin Echo 2.wav"],
@@ -52,6 +58,10 @@ var key_sfx = new Howl(
 		is_key_sfx_playing = false;
 	}
 });
+
+NProgress.inc();
+
+NProgress.done();
 
 var is_jump_sfx_playing = false;
 var is_key_sfx_playing = false;

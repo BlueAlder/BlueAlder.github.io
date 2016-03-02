@@ -83,6 +83,11 @@ function runSplash(deltaTime)
 	context.drawImage(forestBackground, 0, 0);
 
 	context.fillStyle = "red"
+	if (NProgress.status < 100 && NProgress.status != null)
+	{
+		context.fillStyle = "black";
+	}
+
 	context.font = "40px Arial";
 	var textMeasure = context.measureText("A Journey Through Time and Face");
 	context.fillText("A Journey Through Time and Face", SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/2 - 100);
