@@ -82,15 +82,20 @@ function runSplash(deltaTime)
 	//context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	context.drawImage(forestBackground, 0, 0);
 
-	context.fillStyle = "#000"
-	context.font = "50px Arial";
-	var textMeasure = context.measureText("Zorionak");
-	context.fillText("Zorionak", SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/2 - 100);
+	context.fillStyle = "red"
+	context.font = "40px Arial";
+	var textMeasure = context.measureText("A Journey Through Time and Face");
+	context.fillText("A Journey Through Time and Face", SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/2 - 100);
+
+	context.lineWidth = 2;
+	context.strokeText("A Journey Through Time and Face", SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/2 - 100);
+
+	
 	
 	var textMeasure = context.measureText("Click me to play!");
 	
 
-	context.fillStyle = "red";
+	context.fillStyle = "black";
 	context.fillRect(SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/1.5, textMeasure.width, textMeasure.height);
 	context.stroke();
 

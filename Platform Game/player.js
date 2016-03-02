@@ -509,6 +509,8 @@ Player.prototype.respawn = function()
 	
 	normal_background.stop();
 	alternate_background.stop();
+	game_end.stop();
+	win_theme.stop();
 	normal_background.play();
 	this.x = CurrentMap.spawnX;
 	this.y = CurrentMap.spawnY;

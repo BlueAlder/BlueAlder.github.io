@@ -1,31 +1,32 @@
 var normal_background = new Howl(
 {
-	urls: ["Music and Sounds/normal lvl theme.wav"],
+	urls: ["Music and Sounds/level happy.ogg"],
 	loop: true,
 	buffer: true,
 	volume: 0.1
 } );
 
-var game_end = new Howl(
-{
-	urls: ["Music and Sounds/death theme.wav"],
-	buffer: true,
-	volume: 0.1
-} );
-
-
 var alternate_background = new Howl(
 {
-	urls: ["Music and Sounds/alnternate lvl theme.wav"],
+	urls: ["Music and Sounds/evil level.ogg"],
 	loop: true,
 	buffer: true,
 	volume: 0.1
 } );
 //alternate_background.play();
 
+var game_end = new Howl(
+{
+	urls: ["Music and Sounds/death music.ogg"],
+	buffer: true,
+	volume: 0.1
+} );
+
+
+
 var win_theme = new Howl(
 {
-	urls: ["Music and Sounds/victory theme.wav"],
+	urls: ["Music and Sounds/win theme.ogg"],
 	loop: false,
 	buffer:true,
 	volume: 0.1
