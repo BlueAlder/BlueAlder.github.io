@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Conversion</title>
+
+<script type="text/javascript" src="js/conversion.js" > </script>
+<script type="text/javascript" src="js/blackout.js" > </script>
+<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen"/>
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+
+</head>
+
+<body>
+<div id="outer">
+<input class="invisButton" type="button" onClick="pause();" width="20px" height="20px" />
+    <div id="wrapper">
+        <div id="heading">
+            <strong><h1>Converter!</h1></strong>
+        </div>
+        <div id="image">
+        	<img src="images/turny.png" />
+        
+        </div>
+    
+    
+        <div id="convert">
+            <input class="inputs" placeholder="Number" type="number" id="amount" > 
+            
+            <select id ="choice1" onChange="getValue();">
+            	<option value="" disabled="disabled" selected="selected">Please select</option>
+                <option value="metres">Metres</option>
+                <option value="celcius"> Celcius</option> 
+                <option value="feet"> Feet</option> 
+                <option value="fahrenheit"> Fahrenheit</option> 
+                <option value="kelvin"> Kelvin</option> 
+                <option value="miles">Miles</option>
+                
+            </select>
+            
+            <p> Convert to </p>
+            
+            <select id ="choice2">
+            	<option value="" disabled="disabled" selected="selected">Please select</option>
+                <option value="metres">Metres</option>
+                <option value="celcius"> Celcius</option> 
+                <option value="feet"> Feet</option> 
+                <option value="fahrenheit"> Fahrenheit</option> 
+                <option value="kelvin"> Kelvin</option> 
+                <option value="miles">Miles</option>
+                
+            </select>
+            <br>
+            
+            
+            <br>
+            <center><input class="button" value="Submit" type="button" onClick="submit(); check(); play();"></center>
+            
+            <p id="result" >Your Answer Will Be Me :)</p>
+        
+        </div>
+        <div id="copyright">
+        	<p onClick="secretLink();" class="copyright" > Sam Calamos 2016 &copy; </p>
+    </div>
+</div>
+
+<audio id= "audio" controls >
+ <source src="wow-1.wav" type="audio/wav">
+</audio>
+
+<audio id="audio" controls autoplay >
+	<source src="Mark Ronson - Uptown Funk (feat. Bruno Mars) - Lyrics.mp3" type="audio/mp3">
+</audio>
+
+</body>
+</html>
