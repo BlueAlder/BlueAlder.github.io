@@ -1,22 +1,19 @@
-/* CSS Document */
+h1 {
+	color: navy;
+	text-align: center;
+;
+	font-weight: bold;
+	font-size: 60px;
 
-h1 	{
-	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
-	color: #24D5D3;
-	text-align:center;
-	text-decoration:underline;
+	font-family: "Times New Roman", Georgia, Serif;
 }
 
 body	{
 	background:#F2F671;
-	background-image:url(../images/turny.png)
-  background-size: 50px 50px;
+	background-image:url(stance.png);
+	background-size: 100px 100px; 
 }
 
-#outer {
-		width:960px;
-		margin:0px auto;
-}
 #wrapper {
 	width:900px;
 	margin:100px auto;
@@ -24,34 +21,20 @@ body	{
 	border:solid 2px #000;
 }
 
-#convert {
-	margin:0px 40px;
-	padding-bottom:10px;
+#Options
+{
+	margin: auto;
+	width: 28%;
+	padding: 10px;
 }
 
 p {
-	font-family:Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif;
-}
-#result {
-	text-align:center;
-	font-family:Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif;
-}
-
-audio {
-	display:none;
-}
-
-.copyright {
-	text-align:center;
-	font-size:10px;
-	color:#D0CECE;
-  font-family:Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 20px;
 }
 
 
- 
-             
-           
+
 inputs:-webkit-input-placeholder {
     color: #b5b5b5;
 }
@@ -61,10 +44,15 @@ inputs-moz-placeholder {
 }
 
 
-
+.copyright {
+	text-align:center;
+	font-size:10px;
+	color:#D0CECE;
+  font-family:Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif
+}
 
 .inputs {
-    width: 100px;
+    width: 200px;
     padding: 15px 25px;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 400;
@@ -91,52 +79,6 @@ inputs-moz-placeholder {
 .inputs:hover {
     background: #DFE9EC;
     color: #414848;
-}
-
-#choice1  {
-	margin:50px;
-}
-
-#choice2  {
-	margin: 50px 0px;
-}
-
-select {
-   
-   border: 1px solid #111;
-   background: transparent;
-   width: 150px;
-   padding: 5px 35px 5px 5px;
-   font-size: 16px;
-   border: 1px solid #ccc;
-   height: 46px;
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-    background: url(../images/download.png) 96% / 15% no-repeat #eee;
-}
-
-
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
-
-
-
-#image {
-	float:right;
-	margin:50px 50px;
-}
-
-
-.invisButton {
-	 background: transparent;
-    border: none ;
-    font-size:0;
 }
 
 .button {
@@ -166,4 +108,5 @@ input::-webkit-inner-spin-button {
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
 }
+
 
