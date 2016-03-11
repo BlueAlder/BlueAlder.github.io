@@ -19,7 +19,7 @@ var check = function() {
 			document.getElementById('result').innerHTML = "Nothing!";
 		}
 		else{	
-			document.getElementById('result').innerHTML = amount +" "+ c1;
+			document.getElementById('result').innerHTML = amount +" "+ capitalizeFirstLetter(c1);
 		}
 	}	
 
@@ -83,9 +83,6 @@ var check = function() {
 	else {
 		if (!amount) {
 			document.getElementById('result').innerHTML = "Nothing!";	
-		}
-		else {
-			document.getElementById('result').innerHTML = "You Can't Convert That!";
 		}
 	}
 	
@@ -161,4 +158,8 @@ function pause() {
 function secretLink()
 {
 	window.open("MajorWork_Secret/index.html");
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

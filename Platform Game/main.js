@@ -274,7 +274,7 @@ function runGame(deltaTime)
 		updateAlpha(deltaTime);	
 
 		if(!fireRain.isRunning)
-		{
+		{															//vvvv change this back to 3000
 			fireRain.intialize(0, 0, 0, 1, CurrentMap.width * TILE, 0, 3000, 10, 20, 0.5, true, "Graphics and Animation/particle.png");
 						  //(x, y, dir_x, dir_y, width, height, max_particles, life_time, pps, alpha, is_rand_dir)
 			fireRain.isRunning = true;
