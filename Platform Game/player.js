@@ -374,7 +374,7 @@ Player.prototype.Update = function(deltaTime, _cam_x, _cam_y)
 	////floor
 	if(this.velocityY > 0)
 	{
-		if ((cellDown & !cell) || (cellDiag && !cellRight && nx) || (!cellleft && cellDiagleft))
+		if ((cellDown && !cell) || (cellDiag && !cellRight && nx) || (!cellleft && cellDiagleft))
 		{
 			this.y = tile2Pixel(ty);									
 			this.velocityY = 0;
