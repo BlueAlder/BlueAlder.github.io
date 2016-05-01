@@ -1,5 +1,6 @@
 body {
 	background: black;
+	
 }
 
 h1 {
@@ -10,13 +11,24 @@ h1 {
 	text-decoration: underline;
 }
 
-#topBanner {
-	margin: auto;
+
+
+#topTitle{
+	margin: 5px auto;
+
 	width: 640px;
+	border: 3px solid #ffffff;
 	background: #0000ff;
+	
 }
 
 #footer {
 	text-align: center;
 	color: grey;
+}
+
+#leftLogo {
+	width: 150px;
+	height:100px;
+	border: 3px solid #ffffff;
 }

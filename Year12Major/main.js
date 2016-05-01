@@ -4,23 +4,31 @@ var context = canvas.getContext("2d");
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();			//intialise the delta time
 
-var keyboard = new Keyboard();
+var keyboard = new Keyboard();	//initialise keyboard and player
 var player1 = new Player();
+
+var wordList = "http://bluealder.github.io/test.txt";		//define location of list of words 
+var Arr_word_list = []
+populateWordList(wordList);									//convert this txt file to array
+
+	
+loadMap();
+
 
 //GET GLOBAL VARIABLES
 
 var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
 
-var Cam_X = 0;
+var Cam_X = 0;		//intiate the camera for scrolling map
 var Cam_Y = 0;
 var Cam_ratio;
 
-var GAMESTATE_SPLASH = 0;
+var GAMESTATE_SPLASH = 0;				//create variables for gamestates so not confused
 var GAMESTATE_GAME = 1;
 var GAMESTATE_ENDGAME = 2;
 var GAMESTATE_WIN = 3;
-var curGameState = GAMESTATE_SPLASH;
+var curGameState = GAMESTATE_SPLASH;	//set initial game state
 
 var fps = 0;
 var fpsCount = 0;
@@ -42,6 +50,16 @@ function getDeltaTime(){
 
 	return deltaTime;
 }
+
+function loadMap() 
+{
+	loadCollisionMap(currentMap);		//loads collision map of the current map
+	var word = selectWord(6);			
+	console.log(word);
+	
+
+}
+
 
 
 function run() {
@@ -89,13 +107,64 @@ function run() {
 
 }
 
-function drawDebug()
+function drawDebug(_cam_x, _cam_y)
 {
 	context.save();
-	context.strokeRect(player1.x - player1.width/2, player1.y - player1.height/2, player1.width, player1.height);
+	context.strokeRect(player1.x - player1.width/2 - _cam_x, player1.y - player1.height/2 - _cam_y, player1.width, player1.height);
 
 	context.restore();
+
+	context.save();
+	
+	context.fillStyle = "red";
+	context.fillRect(player1.x - _cam_x, player1.y - _cam_y , 5, 5);
+
+	var draw_cells = false;
+
+	if (draw_cells){
+
+
+	context.strokeStyle = 'red';
+	context.strokeRect(player1.x - _cam_x, player1.y - _cam_y, TILE, TILE);		//DRAW CELL
+	context.strokeRect(player1.x - _cam_x - TILE, player1.y - _cam_y, TILE, TILE);		//DRAW CELL left
+	context.strokeRect(player1.x - _cam_x + TILE, player1.y - _cam_y, TILE, TILE);		//DRAW CELL RIGHT
+	context.strokeRect(player1.x - _cam_x, player1.y - _cam_y + TILE, TILE, TILE);		//DRAW CELL DOWN
+	context.strokeRect(player1.x - _cam_x + TILE, player1.y + TILE - _cam_y, TILE, TILE);		//DRAW CELL DIAG RIGHT
+	context.strokeRect(player1.x - _cam_x - TILE, player1.y - _cam_y + TILE, TILE, TILE);		//DRAW CELL
+
+	}
+
+	
+	context.restore();
+
+
 }
+
+function debug_draw_map(input_cells, _cam_x, _cam_y)
+{
+
+    context.save();
+    context.strokeStyle = "green";
+    layerIdx = LAYER_PLATFORMS;
+
+       
+        for(var y = 0; y < input_cells[layerIdx].length; y++)
+        {
+            for(var x = 0; x < input_cells[layerIdx][y].length; x++)
+            {
+                if(input_cells[layerIdx][y][x] !=  0)
+                {
+                    context.strokeRect(x * TILE- _cam_x, y * TILE - _cam_y, TILE, TILE);
+                   
+                }
+            }
+        }
+    
+    //context.stroke();
+    //context.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    context.restore();
+}
+
 
 function runSplash(deltaTime)
 {
@@ -114,9 +183,14 @@ function runSplash(deltaTime)
 function runGame(deltaTime)
 {
 	player1.Update(deltaTime);
+	updateLevel();
 
-	player1.Draw(deltaTime);
-	drawDebug();
+	updateCamera();
+
+	drawLevel(Cam_X, Cam_Y);
+	player1.Draw(deltaTime, Cam_X, Cam_Y);
+	drawDebug(Cam_X, Cam_Y);
+	debug_draw_map(cells, Cam_X, Cam_Y);
 
 
 }
@@ -129,6 +203,42 @@ function runWin(deltaTime)
 function runEndGame(deltaTime)
 {
 	
+}
+
+function updateCamera()
+{
+	var left_stop = 0;
+	var top_stop = 0;
+	var right_stop = TILE * MAP.tw - SCREEN_WIDTH;
+	var bottom_stop = TILE * MAP.th - SCREEN_HEIGHT;
+
+	var new_pos_x = player1.x - SCREEN_WIDTH/2;
+	var new_pos_y = player1.y - SCREEN_HEIGHT/2;
+
+	if (new_pos_x < left_stop)
+	{
+		new_pos_x = left_stop;
+	}
+
+	else if (new_pos_x > right_stop)
+	{
+		new_pos_x = right_stop;
+	}
+
+
+
+	if (new_pos_y < top_stop)
+	{
+		new_pos_y = top_stop;
+	}
+
+	else if (new_pos_y > bottom_stop)
+	{
+		new_pos_y = bottom_stop;
+	}
+
+	Cam_X = new_pos_x;
+	Cam_Y = new_pos_y;
 }
 
 //This function calls the 'run' function 60 times a second so that the game is running at 60 FPS, it requests the animation frame
