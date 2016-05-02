@@ -1,5 +1,9 @@
 function select()
-{
+{	
+
+
+
+	setTimeout( function(){
 	var first = document.getElementById("first").value;
 	var second = document.getElementById("second").value;
 
@@ -23,5 +27,7 @@ function select()
 		}
 	}
 
-	
+  }, 3500); 
+
+	document.getElementById("result".innerHTML) = "Calculating your answer please wait...";
 }
