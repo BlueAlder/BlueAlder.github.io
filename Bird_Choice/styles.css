@@ -1,0 +1,120 @@
+h1 {
+	color: navy;
+	text-align: center;
+;
+	font-weight: bold;
+	font-size: 60px;
+
+	font-family: "Times New Roman", Georgia, Serif;
+}
+
+body	{
+	background:#F2F671;
+	background-image:url(stance.png);
+	background-size: 100px 100px; 
+}
+
+#wrapper {
+	width:900px;
+	margin:100px auto;
+  margin-bottom: 1px;
+  margin-top: 1px;
+	background:#FFF;
+	border:solid 2px #000;
+}
+
+#Options
+{
+	margin: auto;
+	width: 28%;
+	padding: 10px;
+}
+
+#BracketsNinja_de413b9407dc4279ae8114f3d6f221b9
+{
+  width: 48%;
+  margin: auto;
+}
+
+p {
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 20px;
+}
+
+
+
+inputs:-webkit-input-placeholder {
+    color: #b5b5b5;
+}
+
+inputs-moz-placeholder {
+    color: #b5b5b5;
+}
+
+
+.copyright {
+	text-align:center;
+	font-size:10px;
+	color:#D0CECE;
+  font-family:Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif
+}
+
+.inputs {
+    width: 200px;
+    padding: 15px 25px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #575656;
+    text-shadow: 1px 1px 0 rgba(256, 256, 256, 1.0);
+    background: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+}
+
+.inputs:focus {
+    background: #DFE9EC;
+    color: #414848;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+    outline: 0;
+}
+
+.inputs:hover {
+    background: #DFE9EC;
+    color: #414848;
+}
+
+.button {
+  background: #faee00;
+  background-image: -webkit-linear-gradient(top, #faee00, #b8902b);
+  background-image: -moz-linear-gradient(top, #faee00, #b8902b);
+  background-image: -ms-linear-gradient(top, #faee00, #b8902b);
+  background-image: -o-linear-gradient(top, #faee00, #b8902b);
+  background-image: linear-gradient(to bottom, #faee00, #b8902b);
+  -webkit-border-radius: 58;
+  -moz-border-radius: 58;
+  border-radius: 58px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  border: solid #1f628d 2px;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+
