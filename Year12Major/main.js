@@ -11,8 +11,11 @@ var wordList = "http://bluealder.github.io/test.txt";		//define location of list
 var Arr_word_list = []
 populateWordList(wordList);									//convert this txt file to array
 
+var wordToSpell;
+var scrambledWord;
+
 	
-loadMap();
+
 
 
 //GET GLOBAL VARIABLES
@@ -22,7 +25,7 @@ var SCREEN_HEIGHT = canvas.height;
 
 var Cam_X = 0;		//intiate the camera for scrolling map
 var Cam_Y = 0;
-var Cam_ratio;
+var Cam_ratio = 0.05;
 
 var GAMESTATE_SPLASH = 0;				//create variables for gamestates so not confused
 var GAMESTATE_GAME = 1;
@@ -54,9 +57,9 @@ function getDeltaTime(){
 function loadMap() 
 {
 	loadCollisionMap(currentMap);		//loads collision map of the current map
-	var word = selectWord(6);			
-	console.log(word);
-	
+	wordToSpell = selectWord(currentMap.letters);			
+	console.log(wordToSpell);
+	scrambledWord = scrambleWord(wordToSpell);
 
 }
 
@@ -66,8 +69,15 @@ function run() {
 
 	var deltaTime = getDeltaTime();
 
-	context.fillStyle = "grey";
+	context.fillStyle = "red";
 	context.fillRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
+	context.save();
+	context.globalAlpha = "0.5"
+	context.drawImage(background, 0, 0);
+	context.restore();
+
 
 
 
@@ -91,6 +101,8 @@ function run() {
 
 	
 
+	
+
 	fpsTime += deltaTime;
 	fpsCount++;
 
@@ -100,9 +112,11 @@ function run() {
 		fpsCount = 0;
 	}
 
-	context.fillStyle = "#f00";
+	context.fillStyle = "blue";
 	context.font="14px Arial";
-	context.fillText("FPS: " + fps, 5, 60, 100);
+	context.fillText("FPS: " + fps, 5, 60);
+
+	context.fillText("Current Word: " + wordToSpell, 5, 80, 100);
 
 
 }
@@ -136,6 +150,8 @@ function drawDebug(_cam_x, _cam_y)
 
 	
 	context.restore();
+
+
 
 
 }
@@ -187,7 +203,7 @@ function runGame(deltaTime)
 
 	updateCamera();
 
-	drawLevel(Cam_X, Cam_Y);
+	drawLevel(Cam_X, Cam_Y, scrambledWord);
 	player1.Draw(deltaTime, Cam_X, Cam_Y);
 	drawDebug(Cam_X, Cam_Y);
 	debug_draw_map(cells, Cam_X, Cam_Y);
@@ -237,9 +253,16 @@ function updateCamera()
 		new_pos_y = bottom_stop;
 	}
 
-	Cam_X = new_pos_x;
-	Cam_Y = new_pos_y;
+	Cam_X = lerp(Cam_X, new_pos_x, Cam_ratio);
+	Cam_Y = lerp(Cam_Y, new_pos_y, Cam_ratio);
+
+	
 }
+
+function lerp(left_value, right_value, ratio)
+{
+	return left_value + ratio * ( right_value - left_value);
+};
 
 //This function calls the 'run' function 60 times a second so that the game is running at 60 FPS, it requests the animation frame
 //depending on whether the browser supports it or just manulaly sets it.
@@ -278,3 +301,5 @@ function updateCamera()
 }
 )();
 window.onEachFrame(run);
+
+loadMap();
