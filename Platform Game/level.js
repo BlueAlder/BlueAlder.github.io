@@ -235,8 +235,15 @@ function drawMap(_cam_x, _cam_y)
 
 
                     var tileIndex = CurrentMap.layers[layerIdx].data[idx]-1;
+
+                    if (tileIndex == 151){
+                        console.log("test0");
+                    }
+
                     var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) * (TILESET_TILE + TILESET_SPACING);
                     var sy = TILESET_PADDING + (Math.floor(tileIndex/TILESET_COUNT_Y)) * (TILESET_TILE + TILESET_SPACING);
+
+
                     if(layerIdx == LAYER_KEYS)
 					{
                        

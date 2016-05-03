@@ -129,6 +129,8 @@ Player.prototype.Update = function(deltaTime, _cam_x, _cam_y)
 	var cellDiag  =  cellAtTileCoord(LAYER_GROUND, tx + 1, 	ty + 1);
 	var cellDiagleft  =  cellAtTileCoord(LAYER_GROUND, tx - 1, 	ty + 1);
 
+
+
 	
 	var cellPortal 	= cellAtTileCoord(LAYER_PORTAL,    tx, 		ty);
 	var cellKey 	= cellAtTileCoord(LAYER_KEYS, 	   tx, 		ty);
@@ -374,7 +376,7 @@ Player.prototype.Update = function(deltaTime, _cam_x, _cam_y)
 	////floor
 	if(this.velocityY > 0)
 	{
-		if ((cellDown & !cell) || (cellDiag && !cellRight && nx) || (!cellleft && cellDiagleft))
+		if ((cellDown && !cell) || (cellDiag && !cellRight && nx) || (!cellleft && cellDiagleft))
 		{
 			this.y = tile2Pixel(ty);									
 			this.velocityY = 0;
@@ -543,27 +545,12 @@ Player.prototype.Draw = function(_cam_x, _cam_y)
 	this.sprite.draw(context, this.x + (this.width/2) - _cam_x, this.y + (this.height/2) - _cam_y);
 	context.restore();
 
+
+	
 	if (dustParticles.isRunning)
 	{
 		dustParticles.draw(Cam_x, Cam_y);
 	}
-//	context.save();
-//
-//		context.translate(this.x + _cam_x, this.y + _cam_y);
-//		context.rotate(this.rotation);
-//		context.drawImage(this.image, 
-//							-this.width/2,
-//							-this.height/2)
-//
-//	context.restore();
-//
-	//context.save();
-//
-//	//context.beginPath();
-//
-//	//context.rect(this.x - (this.width/2) - _cam_x  , this.y - (this.height/2) - _cam_y, this.width, this.height);
-//	//context.stroke();
-	//context.restore();
-
 }
+
 
