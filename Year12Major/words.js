@@ -1,5 +1,9 @@
 var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
+
+var letterObj = [];
+
+
 function populateWordList(file)		//this function loads a text file from a server and converts it too an array
 								//the text in this file are the list of words possible
 {
@@ -54,6 +58,19 @@ function scrambleWord (word)		//this scrambles the word chosen to be placed on t
 
 	}
 
+	for (var i = 0; i < wordLetters.length; i++)
+	{
+		var letter = new Letter(wordLetters[i]);
+		letterObj.push(letter);			//creates new letter object
+
+	}
+		
+
+
+
+	
+
+	console.log(letterObj);
 	console.log(wordLetters);
 	return wordLetters;	
 }
