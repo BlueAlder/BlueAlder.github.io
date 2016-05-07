@@ -39,15 +39,18 @@ var Player = function()   //this is the player intialiser to create the player
 	this.width = 67;
 	this.height = 94;
 
-	this.falling = false;
+	this.falling = true;
 	this.jumping = false;
 
 	this.direction = LEFT;
 
 	this.inventory = 0;
+	this.inventoryIdx = -1;
 
 	this.pickUpTimer = TIME_PICKUP;		//time in milliseconds of delay between picking up letters
 	this.pickUpAllowed = true;
+
+	this.numLetterPlaced = 0;
 
 }
 
@@ -58,8 +61,18 @@ Player.prototype.respawn = function() {
 	this.velocityX = 0;
 	this.velocityY = 0;
 
-	this.falling = false;
+	this.falling = true;
 	this.jumping = false;
+
+	if (this.inventory != 0)
+	{
+		letterObj[this.inventoryIdx].draw = true;
+		this.inventoryIdx = -1;
+	}
+
+	this.inventory = 0;
+
+
 
 }
 
@@ -104,7 +117,7 @@ Player.prototype.Update = function(deltaTime) {
 		//this.jumping = true;
 	}
 
-	if (keyboard.isKeyDown(keyboard.KEY_E) || keyboard.isKeyDown(keyboard.KEY_CTRL))
+	if (keyboard.isKeyDown(keyboard.KEY_E) || keyboard.isKeyDown(keyboard.KEY_CTRL))		//check for a player interaction check
 	{
 		this.interaction = true;
 	}
@@ -175,6 +188,12 @@ Player.prototype.Update = function(deltaTime) {
 	if (this.y > SCREEN_HEIGHT + 100 )
 	{
 		this.respawn();
+		this.lives --;
+
+		if (this.lives <= 0)
+		{
+			curGameState = GAMESTATE_ENDGAME;
+		}
 
 	}
 
@@ -286,9 +305,27 @@ Player.prototype.placementCheck = function ()
 					this.pickUpTimer = TIME_PICKUP;
 					this.pickUpAllowed = false;
 
-					if ( checkWin() )
+					this.numLetterPlaced++;		//placed another letter down so increase coutner
+
+					if ( this.numLetterPlaced === mapWordLength )
 					{
-						curGameState = GAMESTATE_WIN;
+						if (checkWin())
+						{	
+							if (currentLevel === numLevels)
+							{
+								curGameState = GAMESTATE_WIN;		//player has won all lavels
+							}
+
+							else
+							{	
+								currentLevel ++;		//player wins level and goes to next one
+								changeMap();
+							}
+						}
+						else
+						{
+							curGameState = GAMESTATE_ENDGAME;
+						}
 					}
 
 				}
@@ -302,6 +339,8 @@ Player.prototype.placementCheck = function ()
 
 					this.pickUpTimer = TIME_PICKUP;
 					this.pick = false;
+
+					this.numLetterPlaced--;
 
 
 				}
@@ -327,6 +366,7 @@ Player.prototype.inventoryCheck = function ()
 				if (!this.inventory)
 				{
 				this.inventory = letterObj[letterIdx].letter;
+				this.inventoryIdx = letterIdx;
 				letterObj[letterIdx].draw = false;
 
 				console.log(this.inventory);
@@ -361,14 +401,23 @@ function checkTileMatch (tileToCheckX, tileToCheckY, tileX, tileY)
 } 
 
 function checkWin()
-{
+{	
+	var wordSpelt = "";
+
 	for (var i = 0; i < wordToSpell.length; i++)
 	{
-		if (wordToSpell[i] != placementObj[i].letterPlaced)
-		{
-			return false;
-		}
+			wordSpelt += placementObj[i].letterPlaced
 	}
 
-	return true;
+	if (wordSpelt === wordToSpell)
+	{
+		return true;
+	}
+
+	else if ($.inArray(wordSpelt, Arr_word_list) != -1)		//check if the word spelt is a possible word in array
+	{
+		return true;
+	}
+
+	return false;
 }

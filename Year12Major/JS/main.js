@@ -7,8 +7,8 @@ var endFrameMillis = Date.now();			//intialise the delta time
 var keyboard = new Keyboard();	//initialise keyboard and player
 var player1 = new Player();
 
-var wordList = "http://bluealder.github.io/test.txt";		//define location of list of words 
-populateWordList(wordList);									//convert this txt file to array
+var wordList = "http://bluealder.github.io/wordLists/";		//define location of list of words 
+								//convert this txt file to array
 
 var wordToSpell;
 var scrambledWord;
@@ -24,7 +24,7 @@ var SCREEN_HEIGHT = canvas.height;
 
 var Cam_X = 0;		//intiate the camera for scrolling map
 var Cam_Y = 0;
-var Cam_ratio = 0.05;
+var Cam_ratio = 0.1;
 
 var GAMESTATE_SPLASH = 0;				//create variables for gamestates so not confused
 var GAMESTATE_GAME = 1;
@@ -58,8 +58,11 @@ function getDeltaTime(){
 function loadMap() 
 {	
 	mapWordLength = lengthOfWordInMap();
+	populateWordList(wordList + mapWordLength + "letters.txt");	
+
 	loadCollisionMap(currentMap);		//loads collision map of the current map
-	wordToSpell = selectWord(mapWordLength);			
+	wordToSpell = selectWord(mapWordLength);		
+
 	scrambledWord = scrambleWord(wordToSpell);
 	definePlacements(mapWordLength);
 
@@ -83,7 +86,7 @@ function run() {
 
 
 
-	switch(curGameState)
+	switch(curGameState)		//choose which game state to run
 	{
 		case GAMESTATE_SPLASH:
 			runSplash(deltaTime);
@@ -114,25 +117,31 @@ function run() {
 		fpsCount = 0;
 	}
 
+	var pushDown = 30;
+
 	context.fillStyle = "blue";
 	context.font="14px Arial";
-	context.fillText("FPS: " + fps, 5, 60);
+	context.fillText("FPS: " + fps, 5, 60 + pushDown);
 
-	context.fillText("Current Word: " + wordToSpell, 5, 80, 200);
+	context.fillText("Current Word: " + wordToSpell, 5, 80 + pushDown, 200);
 
-	context.fillText("Inventory: " + player1.inventory, 5, 100, 100);
+	context.fillText("Inventory: " + player1.inventory, 5, 100 + pushDown, 100);
 
 
 }
 
 function drawDebug(_cam_x, _cam_y)
-{
-	context.save();
-	context.strokeRect(player1.x - player1.width/2 - _cam_x, player1.y - player1.height/2 - _cam_y, player1.width, player1.height);
-
-	context.restore();
+{	
 
 	context.save();
+	var drawOutlinePlayer = false;
+
+	if (drawOutlinePlayer)
+	{
+		context.strokeRect(player1.x - TILE - _cam_x, player1.y - player1.height/2 - _cam_y, 2 * TILE, player1.height);
+
+	}
+
 	
 	context.fillStyle = "red";
 	context.fillRect(player1.x - _cam_x, player1.y - _cam_y , 5, 5);
@@ -143,12 +152,12 @@ function drawDebug(_cam_x, _cam_y)
 
 
 	context.strokeStyle = 'red';
-	context.fillRect(player1.x - _cam_x, player1.y - _cam_y, TILE, TILE);		//DRAW CELL
+	context.strokeRect(player1.x - _cam_x, player1.y - _cam_y, TILE, TILE);		//DRAW CELL
 	context.strokeRect(player1.x - _cam_x - TILE, player1.y - _cam_y, TILE, TILE);		//DRAW CELL left
 	context.strokeRect(player1.x - _cam_x + TILE, player1.y - _cam_y, TILE, TILE);		//DRAW CELL RIGHT
-	context.strokeRect(player1.x - _cam_x, player1.y - _cam_y + TILE, TILE, TILE);		//DRAW CELL DOWN
+	//context.strokeRect(player1.x - _cam_x, player1.y - _cam_y + TILE, TILE, TILE);		//DRAW CELL DOWN
 	context.strokeRect(player1.x - _cam_x + TILE, player1.y + TILE - _cam_y, TILE, TILE);		//DRAW CELL DIAG RIGHT
-	context.strokeRect(player1.x - _cam_x - TILE, player1.y - _cam_y + TILE, TILE, TILE);		//DRAW CELL
+	//context.strokeRect(player1.x - _cam_x - TILE, player1.y - _cam_y + TILE, TILE, TILE);		//DRAW CELL
 
 	}
 
@@ -169,6 +178,8 @@ function drawDebug(_cam_x, _cam_y)
 
 
 
+	context.restore();
+
 
 }
 
@@ -176,7 +187,7 @@ function debug_draw_map(input_cells, _cam_x, _cam_y)
 {
 
 
-	var drawMapDebug = false
+	var drawMapDebug = false;
 	if (drawMapDebug)
 	{
 
@@ -197,14 +208,13 @@ function debug_draw_map(input_cells, _cam_x, _cam_y)
 	                	if (layerIdx == LAYER_PLATFORMS)
 	                	{	
 	                		context.strokeStyle = "green";
+	                		context.lineWidth = 1;
+	                		context.strokeRect(x * TILE- _cam_x, y * TILE - _cam_y, TILE, TILE);
 	                	}
 
-	                	else if (layerIdx == LAYER_LETTERS)
-	                	{
-	                		context.strokeStyle = "yellow";
-	                	}
+	                	
 	                    
-	                    context.strokeRect(x * TILE- _cam_x, y * TILE - _cam_y, TILE, TILE);
+	                    
 
 	                }
 	            }
@@ -216,7 +226,7 @@ function debug_draw_map(input_cells, _cam_x, _cam_y)
 }
 
 
-function runSplash(deltaTime)
+function runSplash(deltaTime)		//the splash sscereen gamestate
 {
 	context.fillStyle = "black";
 	context.font = "50px Arial";
@@ -234,15 +244,16 @@ function runSplash(deltaTime)
 
 function runGame(deltaTime)
 {
+	updateLevel();
 	player1.Update(deltaTime);
 	updateCamera();
-	updateLevel();
 
 
 	drawLevel(Cam_X, Cam_Y, scrambledWord);
 	player1.Draw(deltaTime, Cam_X, Cam_Y);
 	drawDebug(Cam_X, Cam_Y);
 	debug_draw_map(cells, Cam_X, Cam_Y);
+	drawUI();
 
 
 
@@ -255,11 +266,26 @@ function runWin(deltaTime)
 	context.font = "50px Arial";
 	var textMeasure = context.measureText("Congrats You Win!");
 	context.fillText("Congrats You Win!", SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/2);
+
+	if (keyboard.isKeyDown(keyboard.KEY_ENTER))
+	{
+		restartGame();
+
+	}
 }
 
 function runEndGame(deltaTime)
 {
-	
+	context.fillStyle = "black";
+	context.font = "50px Arial";
+	var textMeasure = context.measureText("sry ur retard, cant spel");
+	context.fillText("sry ur retard, cant spel", SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/2);
+
+	if (keyboard.isKeyDown(keyboard.KEY_ENTER))
+	{
+		restartGame();
+
+	}
 }
 
 function updateCamera()
@@ -294,8 +320,34 @@ function updateCamera()
 		new_pos_y = bottom_stop;
 	}
 
-	Cam_X = lerp(Cam_X, new_pos_x, Cam_ratio);
-	Cam_Y = lerp(Cam_Y, new_pos_y, Cam_ratio);
+
+	var lerpedCamX = lerp(Cam_X, new_pos_x, Cam_ratio);
+	var lerpedCamY = lerp(Cam_Y, new_pos_y, Cam_ratio);
+
+
+	Cam_X = lerpedCamX;
+	Cam_Y = lerpedCamY;
+
+
+	//if ( lerpedCamX - new_pos_x < leeWayPixel && lerpedCamX - new_pos_x > -leeWayPixel)
+	//{
+	//	Cam_X = new_pos_x;
+	//}
+	//else
+	//{
+	//	Cam_X = lerpedCamX
+	//}
+//
+//	//if ( lerpedCamY - new_pos_y < leeWayPixel && lerpedCamY - new_pos_y > -leeWayPixel)
+//	//{
+//	//	Cam_Y = new_pos_y;
+//	//}
+//
+//	//else
+//	//{
+//	//	Cam_Y = lerpedCamY;
+	//}
+
 
 	
 }
@@ -304,6 +356,18 @@ function lerp(left_value, right_value, ratio)
 {
 	return left_value + ratio * ( right_value - left_value);
 };
+
+
+function restartGame()
+{	
+	curGameState = GAMESTATE_GAME;
+	currentLevel = 1;
+	changeMap();
+	player1.lives = LIVES;
+	player1.respawn;
+
+}
+
 
 //This function calls the 'run' function 60 times a second so that the game is running at 60 FPS, it requests the animation frame
 //depending on whether the browser supports it or just manulaly sets it.
