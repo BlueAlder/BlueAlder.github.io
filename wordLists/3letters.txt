@@ -457,6 +457,7 @@ sax
 say
 sea
 see
+sem
 set
 sew
 sex
@@ -507,6 +508,7 @@ the
 thy
 tic
 tie
+tim
 tin
 tip
 toe
