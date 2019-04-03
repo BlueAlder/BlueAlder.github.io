@@ -312,9 +312,9 @@ function runGame(deltaTime)
 function runWin(deltaTime)
 {
 	context.fillStyle = "black";
-	context.font = "50px Arial";
-	var textMeasure = context.measureText("Congrats You Win!");
-	context.fillText("Congrats You Win!", SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/2);
+	context.font = "20px Arial";
+	var textMeasure = context.measureText("Great work tom, go to https://i.imgur.com/jQJLdfg.jpg!");
+	context.fillText("Great work tom, go to https://i.imgur.com/jQJLdfg.jpg!", SCREEN_WIDTH/2 - (textMeasure.width/2), SCREEN_HEIGHT/2);
 
 	if (keyboard.isKeyDown(keyboard.KEY_ENTER))
 	{
